@@ -1,0 +1,57 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html, body
+{
+    height: 100%;
+}
+
+.carousel-inner .item
+{
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.navbar
+{
+    margin-bottom: 0;
+}
+.title h2
+{
+    font-weight: bold;
+}
+.title hr
+{
+    border: 2px solid;
+    width: 30px;
+}
+.wrapper
+{
+    background-image: url("https://as1.ftcdn.net/jpg/02/93/62/70/220_F_293627000_ZCGkxzHFqjKy7qIs3Cu3SOBT3O8g75BW.jpg");
+    background-size: initial;
+    background-repeat: repeat;
+}
+.title
+{
+    background: white;
+}
+.full-height
+{
+    height: 100%;
+}
+#login-form
+{
+    width: 500px;
+    height: 434px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: auto;
+}
