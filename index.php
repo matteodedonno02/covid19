@@ -79,13 +79,13 @@
       </div>
 
 
-      <div class="container-fluid wrapper">
-        <div class="container title">
+      <div class="container-fluid wrapper container-homepage">
+        <div class="container title container-homepage">
             <h2>Covid-19</h2>
             <hr>
             <h4>Piattaforma di monitoraggio pazienti Covid-19</h4>
-
         </div>
       </div>
+      
 </body>
 </html>

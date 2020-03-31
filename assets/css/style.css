@@ -55,3 +55,7 @@ html, body
     position: absolute;
     margin: auto;
 }
+input[type="date"]
+{
+    line-height: 15px !important;
+}

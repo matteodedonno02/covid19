@@ -14,7 +14,7 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/codice.fiscale.var.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -40,14 +40,58 @@
         </div><!-- /.container-fluid -->
       </nav>
 
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Calcolo CF</h4>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" id="formCF" onsubmit="return calcolaCF();">
+                  <div class="form-group">
+                    <label for="nomeCF">Nome</label>
+                    <input type="text" required="true" class="form-control" id="nomeCF">
+                  </div>
+                  <div class="form-group">
+                    <label for="cognomeCF">Cognome</label>
+                    <input type="text" required="true" class="form-control" id="cognomeCF">
+                  </div>
+                  <div class="form-group">
+                    <label for="sessoCF">M <input type="radio" required="true" class="form-control" name="sessoCF" value="M"></label>
+                  </div>
+                  <div class="form-group">
+                  <label for="sessoCF">F <input type="radio" required="true" class="form-control" name="sessoCF" value="F"></label>
+                  </div>
+                  <div class="form-group">
+                    <label for="dataNascitaCF">Data di nascita</label>
+                    <input type="date" required="true" class="form-control" id="dataNascitaCF">
+                  </div>
+                  <div class="form-group">
+                    <label for="luogoNascitaCF">Luogo di nascita</label>
+                    <input type="text" required="true" class="form-control" id="luogoNascitaCF">
+                  </div>
+                  <div class="form-group">
+                    <label for="provinciaCF">Provincia</label>
+                    <input type="text" required="true" class="form-control" id="provinciaCF">
+                  </div>
+                  <button type="submit" class="btn btn-default" id="calcolaCFButton">Calcola CF</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="container-fluid wrapper full-height">
         <div class="container title full-height">
-
-            
             <form method="POST" action="gestioneUtenti.php" id="login-form" autocomplete="off" style="width: 500px;" onsubmit="return check()">
                 <input type="hidden" name="cmd" value="registrazione">
                 <div class="form-group">
-                  <label for="txtCF">CF</label>
+                  <label for="txtCF">CF</label> 
+                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="margin-bottom: 8px;">
+                    Calcola CF
+                  </button>
                   <input type="text" required="true" minlength="16" maxlength="16"  class="form-control" id="txtCF" name="txtCF" placeholder="CF">
                 </div>
                 <div class="form-group">
@@ -64,7 +108,7 @@
                 </div>
                 <div class="form-group">
                   <label for="txtPassword">Password</label>
-                  <input type="password" required="true" class="form-control" id="txtPassword" name="txtPassword" placeholder="Es. Bfysu387">
+                  <input type="password" required="true" class="form-control" id="txtPassword" name="txtPassword" placeholder="">
                 </div>
                 <div class="checkbox">
                   <label>
@@ -75,4 +119,8 @@
               </form>
         </div>
       </div>
+
+
+      
+    <script src="assets/js/main.js"></script>
 </body>
