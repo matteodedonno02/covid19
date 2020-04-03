@@ -59,3 +59,19 @@ input[type="date"]
 {
     line-height: 15px !important;
 }
+.vertical-align
+{
+    width: 800px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.alert
+{
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+}

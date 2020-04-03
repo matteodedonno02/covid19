@@ -42,36 +42,25 @@
 
       <div class="container-fluid wrapper full-height">
         <div class="container title full-height">
-
-            
-            <form method="POST" action="gestioneUtenti.php" id="login-form" autocomplete="off" style="width: 500px;" onsubmit="return check()">
-                <input type="hidden" name="cmd" value="registrazione">
-                <div class="form-group">
-                  <label for="txtCF">CF</label>
-                  <input type="text" required="true" minlength="16" maxlength="16"  class="form-control" id="txtCF" name="txtCF" placeholder="CF">
-                </div>
-                <div class="form-group">
-                  <label for="txtNome">Nome</label>
-                  <input type="text" required="true" class="form-control" id="txtNome" name="txtNome" placeholder="Es. Mario">
-                </div>
-                <div class="form-group">
-                  <label for="txtCognome">Cognome</label>
-                  <input type="text" required="true" class="form-control" id="txtCognome" name="txtCognome" placeholder="Es. Rossi">
-                </div>
+          <?php
+          if(isset($_GET["errore"]))
+          {
+          ?>
+              <div class="alert alert-danger" role="alert">L'account non esiste o hai inserito dati errati!</div>
+          <?php
+          }
+          ?>
+            <form method="POST" action="gestioneUtenti.php" id="login-form" autocomplete="off" style="width: 500px; height: 182px;">
+                <input type="hidden" name="cmd" value="login">
                 <div class="form-group">
                   <label for="txtUsername">Username</label>
-                  <input type="text" required="true" class="form-control" id="txtUsername" name="txtUsername" placeholder="Es. mario32">
+                  <input type="text" required="true" class="form-control" id="txtUsername" name="txtUsername">
                 </div>
                 <div class="form-group">
                   <label for="txtPassword">Password</label>
-                  <input type="password" required="true" class="form-control" id="txtPassword" name="txtPassword" placeholder="Es. Bfysu387">
+                  <input type="password" required="true" class="form-control" id="txtPassword" name="txtPassword">
                 </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" id="accept-check"> Accetto di condividere i miei dati personali secondo le norme della privacy
-                  </label>
-                </div>
-                <button type="submit" class="btn btn-default">Registrati</button>
+                <button type="submit" class="btn btn-default">Login</button>
               </form>
         </div>
       </div>

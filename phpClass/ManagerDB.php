@@ -13,24 +13,36 @@ class ManagerDB
 
     public function registrazione(Utente $temp)
     {
-        $ps = $this->conn->prepare("INSERT INTO utente (CF, nome, cognome, username, password) VALUES (?, ?, ?, ?, md5(?))");
+        $query = "SELECT * FROM utente WHERE CF = '" . $temp->getCF() . "' OR username = '" . $temp->getUsername() . "'";
+        
 
-
-        $ps->bind_param("sssss", $CF, $nome, $cognome, $username, $password);
-        $CF = $temp->getCF();
-        $nome = $temp->getNome();
-        $cognome = $temp->getCognome();
-        $username = $temp->getUsername();
-        $password = $temp->getPassword();
-
-
-        if(!$ps->execute())
+        $result = $this->conn->query($query);
+        if($result->num_rows >= 1)
         {
             return false;
         }
 
 
+        $query = "INSERT INTO utente (CF, nome, cognome, username, password) VALUES ('" . $temp->getCF() . "', '" . $temp->getNome() ."', '" . $temp->getCognome() ."', '" . $temp->getUsername() . "', md5('" . $temp->getPassword() . "'))";
+        $this->conn->query($query);
+
+
         return true;
+    }
+
+
+    public function login($username, $password)
+    {
+        $query = "SELECT * FROM utente WHERE username = '" . $username . "' AND password = md5('" . $password . "')";
+        $result = $this->conn->query($query);
+
+        while($row = $result->fetch_assoc())
+        {
+            return new Utente($row["CF"], $row["nome"], $row["cognome"], $row["username"], $row["password"], (int)$row["amministratore"]);
+        }
+
+
+        return null;
     }
 
 

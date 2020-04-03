@@ -16,14 +16,40 @@ if($_POST["cmd"] == "registrazione")
 
     $db = new ManagerDB();
 
+    
+    $result = $db->registrazione($temp);
+    $db->chiudiConnessione();
 
-    if($db->registrazione($temp))
+
+    if($result)
     {
         header("location: login.php");
     }
     else
     {
-        header("location: error.php?errore=erroreRegistrazione");
+        header("location: registrazione.php?errore=erroreRegistrazione");
+    }
+}
+else if($_POST["cmd"] == "login")
+{
+    $username = $_POST["txtUsername"];
+    $password = $_POST["txtPassword"];
+
+
+    $db = new ManagerDB();
+    $result = $db->login($username, $password);
+    $db->chiudiConnessione();
+
+
+    if($result != null)
+    {
+        session_start();
+        $_SESSION["loggedUser"] = $result;
+        header("location: index.php");
+    }
+    else
+    {
+        header("location: login.php?errore=erroreRegistrazione");
     }
 }
 ?>

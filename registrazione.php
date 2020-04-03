@@ -85,6 +85,14 @@
 
       <div class="container-fluid wrapper full-height">
         <div class="container title full-height">
+          <?php
+          if(isset($_GET["errore"]))
+          {
+          ?>
+              <div class="alert alert-danger" role="alert">Esiste già un account con lo stesso CF o con lo stesso username!</div>
+          <?php
+          }
+          ?>
             <form method="POST" action="gestioneUtenti.php" id="login-form" autocomplete="off" style="width: 500px;" onsubmit="return check()">
                 <input type="hidden" name="cmd" value="registrazione">
                 <div class="form-group">
