@@ -40,6 +40,10 @@ class Utente
     {
         return $this->password;
     }
+    public function getAmministratore()
+    {
+        return $this->amministratore;
+    }
 
 
     public function __toString()

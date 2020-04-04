@@ -65,7 +65,7 @@ class ManagerDB
         $listaMisurazioni = array();
 
 
-        $query = "SELECT * FROM misurazione WHERE CF = '" . $CF . "'";
+        $query = "SELECT * FROM misurazione WHERE CF = '" . $CF . "' ORDER BY dataMisurazione DESC";
         $result = $this->conn->query($query);
         while($row = $result->fetch_assoc())
         {

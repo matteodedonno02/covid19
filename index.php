@@ -46,13 +46,36 @@ include "phpClass/Utente.php";
             </div><!-- /.navbar-collapse -->
           <?php
           }
+          else if($_SESSION["loggedUser"]->getAmministratore())
+          {
+            $loggedUser = $_SESSION["loggedUser"];
+          ?>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="misurazione.php">ADMIN</a></li>
+                <li><a href="lista-misurazioni.php">ADMIN</a></li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $loggedUser->getUsername(); ?> <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                    <form action="gestioneUtenti.php" method="POST">
+                        <input type="hidden" name="cmd" value="disconnetti">
+                        <button type="submit" class="btn-link">Disconnetti</button>
+                    </form>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          <?php
+          }
           else
           {
             $loggedUser = $_SESSION["loggedUser"];
           ?>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="misurazione.php">Aggiungi misurazione</a></li>
+                <li><a href="misurazione.php">Effetua misurazione</a></li>
                 <li><a href="lista-misurazioni.php">Lista misurazioni</a></li>
                 <li class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $loggedUser->getUsername(); ?> <span class="caret"></span></a>

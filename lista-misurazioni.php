@@ -9,6 +9,16 @@ if(!isset($_SESSION["loggedUser"]))
 $db = new ManagerDB();
 $loggedUser = $_SESSION["loggedUser"];
 $listaMisurazioni = $db->listaMisurazioni($loggedUser->getCF());
+$listaMisurazioniCovid = array();
+for($i = 0; $i < count($listaMisurazioni); $i ++)
+{
+    if($listaMisurazioni[$i]->getTemperatura() >= 37 && $listaMisurazioni[$i]->getDifficoltàRespiratoria())
+    {
+        array_push($listaMisurazioniCovid, $listaMisurazioni[$i]);
+    }
+}
+
+
 $db->chiudiConnessione();
 ?>
 <!DOCTYPE html>
@@ -44,7 +54,7 @@ $db->chiudiConnessione();
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="misurazione.php">Aggiungi misurazione</a></li>
-                <li><a href="registrazione.php">Lista misurazioni</a></li>
+                <li><a href="lista-misurazioni.php">Lista misurazioni</a></li>
                 <li class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $loggedUser->getUsername(); ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
@@ -64,41 +74,82 @@ $db->chiudiConnessione();
 
       <div class="container-fluid wrapper full-height">
         <div class="container title full-height">
+          <div class="table-responsive">
+            <h3 style="margin-bottom: 20px; font-weight: bold;">Misurazioni Covid-19</h3>
             <?php
-            if(count($listaMisurazioni) == 0)
+            if(count($listaMisurazioniCovid) == 0)
             {
             ?>
-                <div class="alert alert-danger" role="alert">Al momento non hai effetuato alcuna misurazione!</div>
+              <div class="alert alert-danger" role="alert">Al momento non ci sono misurazioni che interessano il Covid-19</div>
             <?php
             }
             else
             {
             ?>
-                <div class="table-responsive">
-                    <table class="table">
-                        <tr>
-                            <td class="bold">Temperatura</td>
-                            <td class="bold">Tosse secca</td>
-                            <td class="bold">Difficoltà respiratorie</td>
-                            <td class="bold">Data misurazione</td>
-                        </tr>
-                        <?php
-                        for($i = 0; $i < count($listaMisurazioni); $i ++)
-                        {
-                        ?>
-                            <tr>
-                                <td><?php echo $listaMisurazioni[$i]->getTemperatura() ?> °C</td>
-                                <td><?php echo $listaMisurazioni[$i]->getTosseSecca() ? "Si" : "No" ?></td>
-                                <td><?php echo $listaMisurazioni[$i]->getDifficoltàRespitatoria() ? "Si" : "No" ?></td>
-                                <td><?php echo strval($listaMisurazioni[$i]->getDataMisurazione()) ?></td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </table>
-                </div>
+              <table class="table">
+                  <tr>
+                      <td class="bold">Temperatura</td>
+                      <td class="bold">Tosse secca</td>
+                      <td class="bold">Difficoltà respiratorie</td>
+                      <td class="bold">Data misurazione</td>
+                  </tr>
+                  <?php
+                  for($i = 0; $i < count($listaMisurazioniCovid); $i ++)
+                  {
+                  ?>
+                      <tr>
+                          <td><?php echo $listaMisurazioniCovid[$i]->getTemperatura() ?> °C</td>
+                          <td><?php echo $listaMisurazioniCovid[$i]->getTosseSecca() ? "Si" : "No" ?></td>
+                          <td><?php echo $listaMisurazioniCovid[$i]->getDifficoltàRespiratoria() ? "Si" : "No" ?></td>
+                          <td><?php echo strval($listaMisurazioniCovid[$i]->getDataMisurazione()) ?></td>
+                      </tr>
+                  <?php
+                  }
+                  ?>
+              </table>
             <?php
             }
             ?>
+          </div>
+
+
+          <div class="table-responsive">
+            <h3 style="margin-bottom: 20px; font-weight: bold;">Tutte le misurazioni</h3>
+            <?php
+            if(count($listaMisurazioni) == 0)
+            {
+            ?>
+              <div class="alert alert-danger" role="alert">Al momento non ci hai effettuato nessuna misurazione</div>
+            <?php
+            }
+            else
+            {
+            ?>
+              <table class="table">
+                  <tr>
+                      <td class="bold">Temperatura</td>
+                      <td class="bold">Tosse secca</td>
+                      <td class="bold">Difficoltà respiratorie</td>
+                      <td class="bold">Data misurazione</td>
+                  </tr>
+                  <?php
+                  for($i = 0; $i < count($listaMisurazioni); $i ++)
+                  {
+                  ?>
+                      <tr>
+                          <td><?php echo $listaMisurazioni[$i]->getTemperatura() ?> °C</td>
+                          <td><?php echo $listaMisurazioni[$i]->getTosseSecca() ? "Si" : "No" ?></td>
+                          <td><?php echo $listaMisurazioni[$i]->getDifficoltàRespiratoria() ? "Si" : "No" ?></td>
+                          <td><?php echo strval($listaMisurazioni[$i]->getDataMisurazione()) ?></td>
+                      </tr>
+                  <?php
+                  }
+                  ?>
+              </table>
+            <?php
+            }
+            ?>
+          </div>
         </div>
       </div>
+</body>

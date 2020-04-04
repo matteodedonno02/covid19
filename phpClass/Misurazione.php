@@ -8,6 +8,7 @@ class Misurazione
     private $dataMisurazione;
     private $CF;
 
+
     public function __construct($idMisurazione, $temperatura, $tosseSecca, $difficoltàRespiratoria, $dataMisurazione, $CF)
     {
         $this->idMisurazione = $idMisurazione;
@@ -51,9 +52,9 @@ class Misurazione
 
         return $this;
     }
-    public function getDifficoltàRespitatoria()
+    public function getDifficoltàRespiratoria()
     {
-        return $this->difficoltàRespitatoria;
+        return $this->difficoltàRespiratoria;
     }
     public function setDifficoltàRespitatoria($difficoltàRespitatoria)
     {
