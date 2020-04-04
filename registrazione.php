@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(isset($_SESSION["loggedUser"]))
+{
+    header("location: index.php");
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -27,7 +36,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Covid-19</a>
+            <a class="navbar-brand" href="index.php">Covid-19</a>
           </div>
       
           <!-- Collect the nav links, forms, and other content for toggling -->

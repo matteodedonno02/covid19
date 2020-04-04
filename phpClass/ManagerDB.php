@@ -1,5 +1,6 @@
 <?php
 include "Utente.php";
+include "Misurazione.php";
 class ManagerDB
 {
     private $conn;
@@ -15,7 +16,7 @@ class ManagerDB
     {
         $query = "SELECT * FROM utente WHERE CF = '" . $temp->getCF() . "' OR username = '" . $temp->getUsername() . "'";
         
-
+        
         $result = $this->conn->query($query);
         if($result->num_rows >= 1)
         {
@@ -31,6 +32,19 @@ class ManagerDB
     }
 
 
+    public function registraMisurazione(Misurazione $temp)
+    {
+        $tosseSecca = $temp->getTosseSecca() ? 1 : 0;
+        $difficoltàRespiratoria = $temp->getDifficoltàRespiratoria() ? 1 : 0;
+
+
+        $query = "INSERT INTO misurazione VALUES (0, " . $temp->getTemperatura() . ", " . $tosseSecca . ", " . $difficoltàRespiratoria . ", NOW(), '" . $temp->getCF() . "')";
+
+
+        $this->conn->query($query);
+    }
+
+
     public function login($username, $password)
     {
         $query = "SELECT * FROM utente WHERE username = '" . $username . "' AND password = md5('" . $password . "')";
@@ -43,6 +57,24 @@ class ManagerDB
 
 
         return null;
+    }
+
+
+    public function listaMisurazioni($CF)
+    {
+        $listaMisurazioni = array();
+
+
+        $query = "SELECT * FROM misurazione WHERE CF = '" . $CF . "'";
+        $result = $this->conn->query($query);
+        while($row = $result->fetch_assoc())
+        {
+            $temp = new Misurazione($row["idMisurazione"], $row["temperatura"], $row["tosseSecca"], strval($row["difficoltàRespiratoria"]), $row["dataMisurazione"], $row["CF"]);
+            array_push($listaMisurazioni, $temp);
+        }
+
+
+        return $listaMisurazioni;
     }
 
 

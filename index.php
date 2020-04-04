@@ -1,3 +1,6 @@
+<?php
+include "phpClass/Utente.php";
+?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -26,16 +29,48 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Covid-19</a>
+            <a class="navbar-brand" href="index.php">Covid-19</a>
           </div>
-      
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="login.php">Login</a></li>
-              <li><a href="registrazione.php">Registrazione</a></li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
+
+
+          <?php
+          session_start();
+          if(!isset($_SESSION["loggedUser"]))
+          {
+          ?>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="login.php">Login</a></li>
+                <li><a href="registrazione.php">Registrazione</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          <?php
+          }
+          else
+          {
+            $loggedUser = $_SESSION["loggedUser"];
+          ?>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="misurazione.php">Aggiungi misurazione</a></li>
+                <li><a href="lista-misurazioni.php">Lista misurazioni</a></li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $loggedUser->getUsername(); ?> <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                    <form action="gestioneUtenti.php" method="POST">
+                        <input type="hidden" name="cmd" value="disconnetti">
+                        <button type="submit" class="btn-link">Disconnetti</button>
+                    </form>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          <?php
+          }
+          ?>
+          
         </div><!-- /.container-fluid -->
       </nav>
 
@@ -86,6 +121,5 @@
             <h4>Piattaforma di monitoraggio pazienti Covid-19</h4>
         </div>
       </div>
-      
 </body>
 </html>

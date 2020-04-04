@@ -75,3 +75,11 @@ input[type="date"]
     margin: 0 auto;
     margin-top: 20px;
 }
+.dropdown-menu li button
+{
+    width: 100%;
+}
+.bold
+{
+    font-weight: bold;
+}
