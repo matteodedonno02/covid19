@@ -65,16 +65,76 @@ class ManagerDB
         $listaMisurazioni = array();
 
 
-        $query = "SELECT * FROM misurazione WHERE CF = '" . $CF . "' ORDER BY dataMisurazione DESC";
+        $query = "SELECT *, DATE_FORMAT(dataMisurazione,'%d/%m/%Y') as dataFormattata FROM misurazione WHERE CF = '" . $CF . "' ORDER BY dataMisurazione DESC";
         $result = $this->conn->query($query);
         while($row = $result->fetch_assoc())
         {
-            $temp = new Misurazione($row["idMisurazione"], $row["temperatura"], $row["tosseSecca"], strval($row["difficoltàRespiratoria"]), $row["dataMisurazione"], $row["CF"]);
+            $temp = new Misurazione($row["idMisurazione"], $row["temperatura"], $row["tosseSecca"], strval($row["difficoltàRespiratoria"]), $row["dataFormattata"], $row["CF"]);
             array_push($listaMisurazioni, $temp);
         }
 
 
         return $listaMisurazioni;
+    }
+
+
+    public function listaMisurazioniCovid($CF)
+    {
+        $listaMisurazioni = array();
+
+
+        $query = "SELECT *, DATE_FORMAT(dataMisurazione,'%d/%m/%Y') as dataFormattata FROM misurazione WHERE CF = '" . $CF . "' AND temperatura >= 37 AND difficoltàRespiratoria = 1 ORDER BY dataMisurazione DESC";
+        $result = $this->conn->query($query);
+        while($row = $result->fetch_assoc())
+        {
+            $temp = new Misurazione($row["idMisurazione"], $row["temperatura"], $row["tosseSecca"], strval($row["difficoltàRespiratoria"]), $row["dataFormattata"], $row["CF"]);
+            array_push($listaMisurazioni, $temp);
+        }
+
+
+        return $listaMisurazioni;
+    }
+
+
+    public function listaMisurazioniAdmin()
+    {
+        $listaUtenti = array();
+        $listaMisurazioni = array();
+
+
+        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF ORDER BY m.dataMisurazione DESC";
+        $result = $this->conn->query($query);
+
+
+        while($row = $result->fetch_assoc())
+        {
+            array_push($listaUtenti, new Utente($row["CF"], $row["nome"], $row["cognome"], $row["username"], $row["password"], (int)$row["amministratore"]));
+            array_push($listaMisurazioni, new Misurazione($row["idMisurazione"], $row["temperatura"], $row["tosseSecca"], strval($row["difficoltàRespiratoria"]), $row["dataFormattata"], $row["CF"]));
+        }
+
+
+        return array($listaUtenti, $listaMisurazioni);
+    }
+
+
+    public function listaMisurazioniAdminCovid()
+    {
+        $listaUtenti = array();
+        $listaMisurazioni = array();
+
+
+        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF WHERE m.temperatura >= 37 AND m.difficoltàRespiratoria = 1 ORDER BY m.dataMisurazione DESC";
+        $result = $this->conn->query($query);
+
+
+        while($row = $result->fetch_assoc())
+        {
+            array_push($listaUtenti, new Utente($row["CF"], $row["nome"], $row["cognome"], $row["username"], $row["password"], (int)$row["amministratore"]));
+            array_push($listaMisurazioni, new Misurazione($row["idMisurazione"], $row["temperatura"], $row["tosseSecca"], strval($row["difficoltàRespiratoria"]), $row["dataFormattata"], $row["CF"]));
+        }
+
+
+        return array($listaUtenti, $listaMisurazioni);
     }
 
 

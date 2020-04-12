@@ -82,7 +82,7 @@ if(isset($_SESSION["loggedUser"]))
                     <input type="text" required="true" class="form-control" id="luogoNascitaCF">
                   </div>
                   <div class="form-group">
-                    <label for="provinciaCF">Provincia</label>
+                    <label for="provinciaCF">Provincia (Sigla)</label>
                     <input type="text" required="true" class="form-control" id="provinciaCF">
                   </div>
                   <button type="submit" class="btn btn-default" id="calcolaCFButton">Calcola CF</button>
