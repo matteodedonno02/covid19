@@ -27,5 +27,18 @@ switch ($_POST["cmd"])
         $db->chiudiConnessione();
         header("location: lista-misurazioni.php");
         break;
+    case "modificaMisurazione":
+        $tosseSecca = isset($_POST["txtTosseSecca"]) ? 1 : 0;
+        echo $tosseSecca;
+        $difficoltàRespiratoria = isset($_POST["txtDifficoltàRespiratoria"]) ? 1 : 0;
+        echo $difficoltàRespiratoria;
+
+
+        $db = new ManagerDB();
+        $temp = new Misurazione($_POST["id"], $_POST["txtTemperatura"], $tosseSecca, $difficoltàRespiratoria, null, null);
+        $db->modificaMisurazione($temp);
+        $db->chiudiConnessione();
+        header("location: admin/lista-misurazioni.php");
+        break;
 }
 ?>

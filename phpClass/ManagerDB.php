@@ -138,6 +138,46 @@ class ManagerDB
     }
 
 
+    public function cancellaMisurazione($id)
+    {
+        $query = "DELETE FROM misurazione WHERE idMisurazione = '" . $id . "'";
+        $this->conn->query($query);
+    }
+
+
+    public function getMisurazione($id)
+    {
+        $query = "SELECT * FROM utente u INNER JOIN misurazione m ON u.CF = m.CF WHERE m.idMisurazione = '" . $id . "'";
+        $reuslt = $this->conn->query($query);
+
+
+        $misurazione;
+        $utente;
+
+
+        while($row = $reuslt->fetch_assoc())
+        {
+            $utente = new Utente($row["CF"], $row["nome"], $row["cognome"], $row["username"], $row["password"], (int)$row["amministratore"]);
+            $misurazione = new Misurazione($row["idMisurazione"], $row["temperatura"], $row["tosseSecca"], strval($row["difficoltàRespiratoria"]), $row["dataMisurazione"], $row["CF"]);
+            break;
+        }
+
+
+        return array($utente, $misurazione);
+    }
+
+
+    public function modificaMisurazione(Misurazione $misurazione)
+    {
+        $tosseSecca = $misurazione->getTosseSecca() ? 1 : 0;
+        $difficoltàRespiratoria = $misurazione->getDifficoltàRespiratoria() ? 1 : 0;
+
+
+        $query = "UPDATE misurazione SET temperatura = " . $misurazione->getTemperatura() . ", tosseSecca = " . $tosseSecca . ", difficoltàRespiratoria = " . $difficoltàRespiratoria . " WHERE idMisurazione = " . $misurazione->getIdMisurazione();
+        $this->conn->query($query);
+    }
+
+
     public function chiudiConnessione()
     {
         $this->conn->close();
