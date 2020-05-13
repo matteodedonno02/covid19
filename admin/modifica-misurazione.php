@@ -97,7 +97,7 @@ $db->chiudiConnessione();
             <h3 style="margin-bottom: 20px; text-align: center; font-weight: bold;">Modifica misurazione di <?php echo ($utente->getNome() . " " . $utente->getCognome() . ", " . $utente->getCF()) ?></h3>
             <form method="POST" action="../gestioneMisurazioni.php" id="login-form" autocomplete="off" style="width: 500px; height: 200px;" onsubmit="return check()">
                 <input type="hidden" name="cmd" value="modificaMisurazione">
-                <input type="hidden" name="id" value="<?php $misurazione->getIdMisurazione(); ?>">
+                <input type="hidden" name="id" value="<?php echo $misurazione->getIdMisurazione(); ?>">
                 <div class="form-group">
                   <label for="txtTemperatura">Temperatura corporea</label>
                   <input type="number" step="0.01" required="true" min="35" max="42" class="form-control" id="txtTemperatura" name="txtTemperatura" value="<?php echo $misurazione->getTemperatura() ?>">

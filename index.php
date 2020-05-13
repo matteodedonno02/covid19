@@ -18,7 +18,7 @@ include "phpClass/Utente.php";
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="height: 100%">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -143,8 +143,8 @@ include "phpClass/Utente.php";
       </div>
 
 
-      <div class="container-fluid wrapper container-homepage">
-        <div class="container title container-homepage">
+      <div class="container-fluid wrapper container-homepage" style="height: 100%;">
+        <div class="container title container-homepage" style="height: 100%;">
             <h2>Covid-19</h2>
             <hr>
             <h4>Piattaforma di monitoraggio pazienti Covid-19</h4>

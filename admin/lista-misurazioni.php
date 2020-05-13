@@ -181,6 +181,9 @@ $db->chiudiConnessione();
                           <td><?php echo $listaMisurazioni[$i]->getTosseSecca() ? "Si" : "No" ?></td>
                           <td><?php echo $listaMisurazioni[$i]->getDifficoltàRespiratoria() ? "Si" : "No" ?></td>
                           <td><?php echo strval($listaMisurazioni[$i]->getDataMisurazione()) ?></td>
+                          
+                          <td><a href="modifica-misurazione.php?cmd=edit&id=<?php echo $listaMisurazioni[$i]->getIdMisurazione() ?>"><img class="crud-icon" src="../assets/img/edit.png"></a></td>
+                          <td><a href="modifica-misurazione.php?cmd=del&id=<?php echo $listaMisurazioni[$i]->getIdMisurazione() ?>"><img class="crud-icon" src="../assets/img/delete.png"></a></td>
                       </tr>
                   <?php
                   }
