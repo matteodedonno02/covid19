@@ -76,8 +76,23 @@ $loggedUser = $_SESSION["loggedUser"];
                   <label for="txtDifficoltàRespiratoria">Difficoltà respiratorio</label>
                   <input type="checkbox" id="txtDifficoltàRespiratoria" name="txtDifficoltàRespiratoria" value="si">
                 </div>
+                <div class="form-group">
+                  <label for="txtTemperatura">Data misurazione</label>
+                  <input type="date" required="true" class="form-control" id="txtData" name="txtData">
+                </div>
                 <button type="submit" class="btn btn-default">Registra misurazione</button>
               </form>
         </div>
       </div>
+
+
+      <script>
+        now = new Date();
+        day = ("0" + now.getDate()).slice(-2);
+        month = ("0" + (now.getMonth() + 1)).slice(-2);
+        today = now.getFullYear()+"-"+(month)+"-"+(day);
+
+        $("#txtData").val(today);
+        $("#txtData").attr("max", today);
+      </script>
 </body>

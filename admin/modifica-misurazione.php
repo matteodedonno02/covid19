@@ -110,8 +110,23 @@ $db->chiudiConnessione();
                   <label for="txtDifficoltàRespiratoria">Difficoltà respiratorio</label>
                   <input type="checkbox" <?php echo $difficoltàRespiratoria; ?> id="txtDifficoltàRespiratoria" name="txtDifficoltàRespiratoria" value="si">
                 </div>
+                <div class="form-group">
+                  <label for="txtTemperatura">Data misurazione</label>
+                  <input type="date" required="true" class="form-control" id="txtData" name="txtData" value="<?php echo $misurazione->getDataMisurazione(); ?>">
+                </div>
                 <button type="submit" class="btn btn-default">Modifica</button>
               </form>
         </div>
       </div>
+
+
+      <script>
+        now = new Date();
+        day = ("0" + now.getDate()).slice(-2);
+        month = ("0" + (now.getMonth() + 1)).slice(-2);
+        today = now.getFullYear()+"-"+(month)+"-"+(day);
+
+    
+        $("#txtData").attr("max", today);
+      </script>
 </body>

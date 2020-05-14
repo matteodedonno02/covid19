@@ -22,8 +22,17 @@ $db = new ManagerDB();
 $loggedUser = $_SESSION["loggedUser"];
 
 
-$temp = $db->listaMisurazioniAdmin();
-$temp1 = $db->listaMisurazioniAdminCovid();
+if(!isset($_GET["search"]))
+{
+    $temp = $db->listaMisurazioniAdmin("");
+    $temp1 = $db->listaMisurazioniAdminCovid("");
+}
+else
+{
+    $temp = $db->listaMisurazioniAdmin($_GET["search"]);
+    $temp1 = $db->listaMisurazioniAdminCovid($_GET["search"]);
+}
+
 
 
 $listaUtenti = $temp[0];
@@ -65,7 +74,7 @@ $db->chiudiConnessione();
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">Covid-19</a>
+            <a class="navbar-brand" href="../index.php">Covid-19</a>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -96,7 +105,13 @@ $db->chiudiConnessione();
 
       <div class="container-fluid wrapper full-height">
         <div class="container title full-height">
-          <div class="table-responsive">
+        <form action="lista-misurazioni.php" class="navbar-form navbar-left" style="margin-top: 25px;">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Cerca utente" name="search">
+          </div>
+          <button type="submit" class="btn btn-default">Cerca</button>
+        </form>
+          <div class="table-responsive" style="margin-top: 70px;">
             <h3 style="margin-bottom: 20px; font-weight: bold;">Misurazioni Covid-19</h3>
             <?php
             if(count($listaMisurazioniCovid) == 0)

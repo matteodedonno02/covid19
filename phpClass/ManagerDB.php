@@ -38,7 +38,7 @@ class ManagerDB
         $difficoltàRespiratoria = $temp->getDifficoltàRespiratoria() ? 1 : 0;
 
 
-        $query = "INSERT INTO misurazione VALUES (0, " . $temp->getTemperatura() . ", " . $tosseSecca . ", " . $difficoltàRespiratoria . ", NOW(), '" . $temp->getCF() . "')";
+        $query = "INSERT INTO misurazione VALUES (0, " . $temp->getTemperatura() . ", " . $tosseSecca . ", " . $difficoltàRespiratoria . ", '" . $temp->getDataMisurazione() . "', '" . $temp->getCF() . "')";
 
 
         $this->conn->query($query);
@@ -96,13 +96,14 @@ class ManagerDB
     }
 
 
-    public function listaMisurazioniAdmin()
+    public function listaMisurazioniAdmin($search)
     {
         $listaUtenti = array();
         $listaMisurazioni = array();
 
-
-        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF ORDER BY m.dataMisurazione DESC";
+        $search == "" ?
+        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF ORDER BY m.dataMisurazione DESC" :
+        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF WHERE u.nome LIKE '%" . $search . "%' OR u.cognome LIKE '%" . $search . "%' OR u.CF LIKE '%" . $search . "%' ORDER BY m.dataMisurazione DESC";
         $result = $this->conn->query($query);
 
 
@@ -117,13 +118,14 @@ class ManagerDB
     }
 
 
-    public function listaMisurazioniAdminCovid()
+    public function listaMisurazioniAdminCovid($search)
     {
         $listaUtenti = array();
         $listaMisurazioni = array();
 
-
-        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF WHERE m.temperatura >= 37 AND m.difficoltàRespiratoria = 1 ORDER BY m.dataMisurazione DESC";
+        $search == "" ?
+        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF WHERE m.temperatura >= 37 AND m.difficoltàRespiratoria = 1 ORDER BY m.dataMisurazione DESC" :
+        $query = "SELECT *, DATE_FORMAT(m.dataMisurazione,'%d/%m/%Y') as dataFormattata FROM utente u INNER JOIN misurazione m ON u.CF = m.CF WHERE m.temperatura >= 37 AND m.difficoltàRespiratoria = 1 AND (u.nome LIKE '%" . $search . "%' OR u.cognome LIKE '%" . $search . "%' OR u.CF LIKE '%" . $search . "%') ORDER BY m.dataMisurazione DESC";
         $result = $this->conn->query($query);
 
 
@@ -173,7 +175,7 @@ class ManagerDB
         $difficoltàRespiratoria = $misurazione->getDifficoltàRespiratoria() ? 1 : 0;
 
 
-        $query = "UPDATE misurazione SET temperatura = " . $misurazione->getTemperatura() . ", tosseSecca = " . $tosseSecca . ", difficoltàRespiratoria = " . $difficoltàRespiratoria . " WHERE idMisurazione = " . $misurazione->getIdMisurazione();
+        $query = "UPDATE misurazione SET dataMisurazione = '" . $misurazione->getDataMisurazione() . "', temperatura = " . $misurazione->getTemperatura() . ", tosseSecca = " . $tosseSecca . ", difficoltàRespiratoria = " . $difficoltàRespiratoria . " WHERE idMisurazione = " . $misurazione->getIdMisurazione();
         $this->conn->query($query);
     }
 

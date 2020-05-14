@@ -6,6 +6,7 @@ if(!isset($_SESSION["loggedUser"]))
     header("location: index.php");
 }
 
+
 $db = new ManagerDB();
 $loggedUser = $_SESSION["loggedUser"];
 $listaMisurazioni = $db->listaMisurazioni($loggedUser->getCF());

@@ -148,6 +148,7 @@ include "phpClass/Utente.php";
             <h2>Covid-19</h2>
             <hr>
             <h4>Piattaforma di monitoraggio pazienti Covid-19</h4>
+            <p></p>
         </div>
       </div>
 </body>
